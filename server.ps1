@@ -1,10 +1,10 @@
 # server.ps1 - Pure PowerShell Web Server
-# Serves the OmniDeck multimedia dashboard on http://localhost:8000
+# Serves the PlanIT multimedia dashboard on http://localhost:8000
 
 $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add("http://127.0.0.1:8000/")
 $listener.Start()
-Write-Host "OmniDeck server is running at http://127.0.0.1:8000/"
+Write-Host "PlanIT server is running at http://127.0.0.1:8000/"
 Write-Host "Press Ctrl+C to stop the server."
 
 $baseDir = "C:\Users\ajcon\.gemini\antigravity-ide\scratch\multimedia-dashboard"

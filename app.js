@@ -77,7 +77,7 @@ function saveWorkspaceState(updateHash = true) {
     });
     
     windowsState = freshState;
-    localStorage.setItem('omnideck_layout', JSON.stringify(windowsState));
+    localStorage.setItem('planit_layout', JSON.stringify(windowsState));
     
     if (updateHash) {
         try {
@@ -191,7 +191,7 @@ function loadDefaultWorkspace() {
             id: 'win-default-doc',
             type: 'document',
             title: 'Project Workspace Notes',
-            content: `Welcome to OmniDeck! 🚀
+            content: `Welcome to PlanIT! 🚀
 
 This is a premium multi-window media hub. 
 
@@ -312,7 +312,7 @@ function initWorkspace() {
     }
     
     // Fallback: LocalStorage
-    const cached = localStorage.getItem('omnideck_layout');
+    const cached = localStorage.getItem('planit_layout');
     if (cached) {
         try {
             const parsed = JSON.parse(cached);
@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dataStr = JSON.stringify(windowsState, null, 2);
         const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
         
-        const exportFileDefaultName = 'omnideck-workspace-package.json';
+        const exportFileDefaultName = 'planit-workspace-package.json';
         
         const linkElement = document.createElement('a');
         linkElement.setAttribute('href', dataUri);
