@@ -164,3 +164,45 @@ export function makeWindowInteractive(win, onLayoutChange) {
         document.addEventListener('touchend', touchEndHandler);
     }, { passive: true });
 }
+
+// Set up HTML5 Drag and Drop listeners on window elements
+export function setupWindowDragAndDrop(win, onDropAsset) {
+    let dragCounter = 0; // Prevent dragenter/dragleave flickering on inner elements
+
+    win.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        dragCounter++;
+        win.classList.add('window-drag-hover');
+    });
+
+    win.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+    });
+
+    win.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dragCounter--;
+        if (dragCounter === 0) {
+            win.classList.remove('window-drag-hover');
+        }
+    });
+
+    win.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dragCounter = 0;
+        win.classList.remove('window-drag-hover');
+        
+        try {
+            const dataStr = e.dataTransfer.getData('text/plain');
+            if (dataStr) {
+                const asset = JSON.parse(dataStr);
+                if (asset && asset.type) {
+                    onDropAsset(asset);
+                }
+            }
+        } catch (err) {
+            console.error("Drop parsing error: ", err);
+        }
+    });
+}

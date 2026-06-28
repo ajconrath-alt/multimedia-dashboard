@@ -33,6 +33,9 @@
         <!-- Top Control Bar -->
         <header class="control-bar">
             <div class="brand">
+                <button class="btn btn-secondary" id="sidebar-toggle-btn" title="Toggle Asset Library" style="padding: 0 10px; height: 38px; width: 38px; justify-content: center;">
+                    <i data-lucide="folder"></i>
+                </button>
                 <i data-lucide="layout" class="logo-icon"></i>
                 <div class="brand-text">
                     <h1>PlanIT</h1>
@@ -84,10 +87,36 @@
             </div>
         </header>
 
-        <!-- Main Workspace Area -->
-        <main class="workspace" id="workspace-canvas">
-            <!-- Windows will be injected here dynamically -->
-        </main>
+        <!-- Main Layout Section -->
+        <div class="workspace-wrapper">
+            <!-- Asset Library Sidebar -->
+            <aside class="sidebar" id="sidebar-panel">
+                <div class="sidebar-header">
+                    <i data-lucide="library" class="sidebar-header-icon"></i>
+                    <h2>Asset Library</h2>
+                </div>
+                <div class="sidebar-actions">
+                    <button class="btn btn-primary" id="lib-import-btn" style="width: 100%; justify-content: center; height: 36px;">
+                        <i data-lucide="upload-cloud"></i>
+                        <span>Import Files</span>
+                    </button>
+                    <input type="file" id="lib-file-input" multiple accept="image/*,text/plain,.md" style="display: none;">
+                    
+                    <button class="btn btn-secondary" id="lib-add-link-btn" style="width: 100%; justify-content: center; height: 36px; margin-top: 8px;">
+                        <i data-lucide="link"></i>
+                        <span>Add Remote Link</span>
+                    </button>
+                </div>
+                <div class="library-list" id="library-list">
+                    <!-- Library items injected here dynamically -->
+                </div>
+            </aside>
+
+            <!-- Main Workspace Canvas -->
+            <main class="workspace" id="workspace-canvas">
+                <!-- Windows will be injected here dynamically -->
+            </main>
+        </div>
         
         <!-- Toast Notification for sharing alerts -->
         <div class="toast" id="toast-notification">
