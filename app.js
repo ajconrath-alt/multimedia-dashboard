@@ -535,6 +535,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const files = e.target.files;
         if (!files || files.length === 0) return;
         
+        // Capture total count BEFORE clearing so the async callbacks can compare against it
+        const totalCount = files.length;
         let loadedCount = 0;
         
         Array.from(files).forEach(file => {
@@ -549,7 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newAsset = {
                     id: `asset-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
                     type,
-                    title: file.name.split('.')[0] || file.name,
+                    title: file.name.replace(/\.[^/.]+$/, '') || file.name,
                     url,
                     content
                 };
@@ -557,10 +559,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 libraryState.push(newAsset);
                 loadedCount++;
                 
-                if (loadedCount === files.length) {
+                // Only re-render and save once ALL files have finished loading
+                if (loadedCount === totalCount) {
                     renderLibraryList();
                     saveWorkspaceState();
-                    showToast(`Imported ${files.length} file(s) successfully!`);
+                    showToast(`Imported ${totalCount} file(s) successfully!`);
+                    // Clear input here so same files can be selected again later
+                    libFileInput.value = '';
+                }
+            };
+            
+            reader.onerror = () => {
+                loadedCount++;
+                console.error(`Failed to read file: ${file.name}`);
+                if (loadedCount === totalCount) {
+                    renderLibraryList();
+                    saveWorkspaceState();
+                    libFileInput.value = '';
                 }
             };
             
@@ -570,9 +585,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 reader.readAsText(file);
             }
         });
-        
-        // Clear input value so same files can be selected again
-        libFileInput.value = '';
     });
     
     // Sidebar Add Custom Link Dialog
