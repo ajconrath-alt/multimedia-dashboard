@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniDeck - Multi-Window Media Workspace</title>
+    
+    <!-- Google Fonts: Outfit for headers, Inter for UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons (CDN) for modern, clean icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Leaflet JS & CSS for Map rendering -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Colorful ambient blur blobs for premium glassmorphism background -->
+        <div class="ambient-glow bg-blue"></div>
+        <div class="ambient-glow bg-purple"></div>
+        <div class="ambient-glow bg-pink"></div>
+
+        <!-- Top Control Bar -->
+        <header class="control-bar">
+            <div class="brand">
+                <i data-lucide="layout" class="logo-icon"></i>
+                <div class="brand-text">
+                    <h1>OmniDeck</h1>
+                    <span class="tagline">Media Workspace</span>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <!-- Add Window Dropdown Trigger -->
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-btn" id="add-window-btn">
+                        <i data-lucide="plus"></i>
+                        <span>Add Window</span>
+                        <i data-lucide="chevron-down" class="chevron"></i>
+                    </button>
+                    <div class="dropdown-content" id="add-window-menu">
+                        <a href="#" data-type="video"><i data-lucide="video"></i> Video Stream</a>
+                        <a href="#" data-type="map"><i data-lucide="map"></i> Interactive Map</a>
+                        <a href="#" data-type="picture"><i data-lucide="image"></i> Picture Viewer</a>
+                        <a href="#" data-type="document"><i data-lucide="file-text"></i> Live Notepad</a>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Export / Import Operations -->
+                <button class="btn btn-secondary" id="share-workspace-btn" title="Copy shareable link to clipboard">
+                    <i data-lucide="share-2"></i>
+                    <span>Share Layout</span>
+                </button>
+                
+                <button class="btn btn-secondary" id="export-btn" title="Download layout as JSON package">
+                    <i data-lucide="download"></i>
+                    <span>Export Package</span>
+                </button>
+
+                <div class="btn-file-wrapper">
+                    <button class="btn btn-secondary" id="import-btn-trigger">
+                        <i data-lucide="upload"></i>
+                        <span>Import Package</span>
+                    </button>
+                    <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                </div>
+
+                <button class="btn btn-danger" id="clear-btn" title="Remove all windows">
+                    <i data-lucide="trash-2"></i>
+                    <span>Clear All</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Workspace Area -->
+        <main class="workspace" id="workspace-canvas">
+            <!-- Windows will be injected here dynamically -->
+        </main>
+        
+        <!-- Toast Notification for sharing alerts -->
+        <div class="toast" id="toast-notification">
+            <i data-lucide="check-circle" class="toast-icon"></i>
+            <span class="toast-msg">Link copied to clipboard!</span>
+        </div>
+    </div>
+
+    <!-- Application Script Files -->
+    <!-- We load scripts standard or as modules. Using modules makes it extremely clean -->
+    <script src="app.js" type="module"></script>
+</body>
+</html>
